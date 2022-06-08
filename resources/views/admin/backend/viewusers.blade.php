@@ -58,7 +58,7 @@
                             <td>{{$user->updated_at}}</td>
                             <td>
 								<a href="{{route('users.edit',$user->id)}}" class="btn btn-success">Edit</a>
-								<a href="{{route('users.delete',$user->id)}}" class="btn btn-danger">Delete</a>
+								<a href="{{route('users.delete',$user->id)}}" class="btn btn-danger" id="delete">Delete</a>
 							</td>
 
                         </tr>

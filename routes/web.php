@@ -16,7 +16,7 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Route::middleware([
@@ -41,6 +41,6 @@ Route::prefix('users')->group(function(){
     Route::get('/addUser',[UserController::class,'AddUser']);
     Route::post('/storeUser',[UserController::class,'storeUser'])->name('users.store');
     Route::get('/editUser/{id}',[UserController::class,'editUser'])->name('users.edit');
-    Route::post('/deleteUser/{id}',[UserController::class,'deleteUser'])->name('users.delete');
+    Route::get('/deleteUser/{id}',[UserController::class,'deleteUser'])->name('users.delete');
     Route::post('/updateUser/{id}',[UserController::class,'updateUser'])->name('users.update');
 });

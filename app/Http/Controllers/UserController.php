@@ -65,25 +65,22 @@ class UserController extends Controller
     public function updateUser(Request $request,$id)
     {
         $request->validate([
-            'name'=>"required|max:255|unique:users",
-            'email'=>"required|email|unique:users",
+            'name'=>"required|max:255",
+            'email'=>"required|email",
             'role'=>"required",
-        ],
-         [  'name.required'=>"Please enter the name",
-            'email.unique' => "This email is already exists",
-        ] 
-    );
-      
-        User::find($id)->update([
-            'name'=>$request->name,
-            'email'=>$request->email,
-            'role'=>$request->role,
-            'password'=>bcrypt($request->password)
         ]);
+      
+        $data = User::find($id);
+        $data->name = $request->name;
+        $data->email = $request->email;
+        $data->role = $request->role;
+        $data->password = bcrypt($request->password);
+
+        $data->save();
 
         $notification = array(
             'message'=>"User Updated successfully",
-            'alert-type'=>'info',
+            'alert-type'=>'success',
         );
         
         return redirect()->route('users.view')->with($notification);
@@ -91,6 +88,16 @@ class UserController extends Controller
 
     public function deleteUser($id)
     {
+
+        $user = User::find($id);
+        $user->delete();
+
+        $notification = array(
+            'message'=>"User Deleted successfully",
+            'alert-type'=>'danger',
+        );
+        
+        return redirect()->route('users.view')->with($notification);
 
     }
 }
